@@ -1,0 +1,63 @@
+﻿<Window x:Class="OOO_Goods_for_Animals.View.Windows.AdminPanelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Goods_for_Animals.View.Windows"
+        mc:Ignorable="d"
+        Background="#FF76E383"
+        Title="ООО «Товары для животных» - Админ панель" MinHeight="400" MinWidth="800" MaxWidth="800" Height="400" Width="800">
+    <Border Background="White" Margin="10" CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <DataGrid Background="White" Grid.Row="1" Grid.RowSpan="3" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Products}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Артикул (ПК)" Binding="{Binding ArticleNumber}"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding NameItem.Name}"/>
+                    <DataGridTextColumn Header="Ед.изм." Binding="{Binding Unit}"/>
+                    <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="MAX скидка" Binding="{Binding MaxDiscount}"/>
+                    <DataGridTextColumn Header="Производитель" Binding="{Binding ManufacturerItem.Name}"/>
+                    <DataGridTextColumn Header="Поставщик" Binding="{Binding ProviderItem.Name}"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding CategoryItem.Name}"/>
+                    <DataGridTextColumn Header="Скидка" Binding="{Binding CurrentDiscount}"/>
+                    <DataGridTextColumn Header="Количество товаров на складе" Binding="{Binding CountProductStock}"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding CategoryItem.Discription}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Border Background="#FF498C51" CornerRadius="15" Margin="15, 10" Grid.Row="2">
+                <StackPanel Margin="10" Grid.Row="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="75" Content="Логин"/>
+                        <Label Width="75" Content="Пароль"/>
+                        <Label Width="75" Content="Фамилия"/>
+                        <Label Width="75" Content="Имя"/>
+                        <Label Width="75" Content="Отчество"/>
+                        <Label Width="75" Content="Телефон"/>
+                        <Label Width="75" Content="Статус"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Width="75" Text="{Binding AddUser.Login}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.Password}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.UserInfo.FirstName}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.UserInfo.MiddleName}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.UserInfo.LastName}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.UserInfo.Phone}"/>
+                        <TextBox Width="75" Text="{Binding AddUser.UserInfo.UserStatus.Name}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <StackPanel Grid.Row="3" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Background="#FF498C51" Click="AddButton_Click" Content="Добавить" Padding="30,10" Margin="70,10"/>
+                <Button Background="#FF498C51" Click="AddButton_Click" Content="Удалить" Padding="30,10" Margin="70,10"/>
+                <Button Background="#FF498C51" Click="AddButton_Click" Content="Обновить" Padding="30,10" Margin="70,10"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,89 @@
+create database [Trade]
+go
+use [Trade]
+go
+CREATE TABLE [PickupPoint](
+	NumberPickupPoint INT PRIMARY KEY,
+	City NVARCHAR(50),
+	Street NVARCHAR(50),
+	House INT
+)
+create table [Role]
+(
+	ID int primary key identity,
+	RoleName nvarchar(100) not null
+)
+go
+CREATE TABLE [UserInfo](
+	ID INT PRIMARY KEY IDENTITY,
+	UserSurname nvarchar(100) not null,
+	UserName nvarchar(100) not null,
+	UserPatronymic nvarchar(100) not null,
+	UserRole int foreign key references [Role](ID) not null
+)
+
+create table [User]
+(
+	ID int primary key identity,	
+	UserLogin nvarchar(50) not null,
+	UserPassword nvarchar(50) not null,
+	UserInfoID INT FOREIGN KEY REFERENCES [UserInfo]
+)
+
+CREATE TABLE [NameItem](
+	ID INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(30)
+)
+CREATE TABLE [ManufacturerItem](
+	ID INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(50)
+)
+CREATE TABLE [ProviderItem](
+	ID INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(50)
+)
+CREATE TABLE [CategoryItem](
+	ID INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(50)
+)
+CREATE TABLE [Product]
+(
+	ArticleNumber nvarchar(100) primary key,
+	[NameID] INT FOREIGN KEY REFERENCES [NameItem] not null,
+	Unit NVARCHAR(20),
+	Price Money,
+	MaxDiscount INT,
+	ManufacturerID INT FOREIGN KEY REFERENCES [ManufacturerItem],
+	ProviderItemID INT FOREIGN KEY REFERENCES [ProviderItem],
+	CategoryItemID INT FOREIGN KEY REFERENCES [CategoryItem],
+	CurrentDiscount INT,
+	CountProductStock INT,
+	Discription NVARCHAR(max)
+)
+
+CREATE TABLE [StatusOrder](
+	ID INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(30)
+)
+
+CREATE TABLE [Order](
+	ID INT PRIMARY KEY IDENTITY,
+	DateOrder Date,
+	DateProvide Date,
+	PickupPointMailIndex INT FOREIGN KEY REFERENCES [PickupPoint],
+	UserInfoID INT FOREIGN KEY REFERENCES [UserInfo],
+	CodeForGet INT,
+	StatusOrderID INT FOREIGN KEY REFERENCES [StatusOrder]
+)
+
+
+go
+create table OrderHasProduct
+(
+	ID INT PRIMARY KEY IDENTITY,
+	OrderID int foreign key references [Order](ID) not null,
+	ProductArticleNumber nvarchar(100) foreign key references Product(ArticleNumber) not null,
+	CountProducts INT
+	--Primary key (OrderID,ProductArticleNumber)
+)
+
